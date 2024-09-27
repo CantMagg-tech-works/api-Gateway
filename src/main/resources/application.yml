@@ -9,10 +9,15 @@ spring:
           enabled: true
           lower-case-service-id: true
       routes:
+
         - id: auth-server
           uri: http://auth-server:8080
           predicates:
-            - Path=/login, /oauth2/**
+            - Path="/login", "/oauth2/**"
+        - id: api-users
+          uri: lb://api-users
+          predicates:
+            - Path="/api-users/api/v1/users/**"
 
 server:
   port: ${PORT}
@@ -21,3 +26,16 @@ eureka:
   client:
     service-url:
       defaultZone: ${EUREKA_SERVER_URL}
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    config-url: /v3/api-docs/swagger-config
+    urls:
+      - name: gateway-service
+        url: /v3/api-docs
+      - name: api-users
+        url: /api-users/v3/api-docs

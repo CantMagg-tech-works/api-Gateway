@@ -18,6 +18,10 @@ spring:
           uri: lb://api-users
           predicates:
             - Path="/api-users/api/v1/users/**"
+        - id: api-notifications
+          uri: lb://api-notifications
+          predicates:
+            - Path="/api-notifications/api/v1/sends/**"
 
 server:
   port: ${PORT}
@@ -39,3 +43,5 @@ springdoc:
         url: /v3/api-docs
       - name: api-users
         url: /api-users/v3/api-docs
+      - name: api-notifications
+        url: /api-notifications/v3/api-docs
